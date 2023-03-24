@@ -10,8 +10,11 @@ import {
   REGISTER,
 } from "redux-persist";
 import { configureStore } from "@reduxjs/toolkit";
+import quizReducer from "./quiz/quizReducer";
 
-const reducers = combineReducers({});
+const reducers = combineReducers({
+  quiz: quizReducer,
+});
 
 const presistConfig = {
   key: "root",
