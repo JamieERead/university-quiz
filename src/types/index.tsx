@@ -2,6 +2,8 @@ export interface Quiz {
   name: string;
   heading: string;
   activities: Activity[];
+  currentQuestion: number;
+  selectedActivity: string;
 }
 
 export interface Activity {

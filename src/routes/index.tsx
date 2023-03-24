@@ -5,8 +5,8 @@ import ResultsScreen from "../screens/results";
 
 export const route = {
   home: "/",
-  question: "/question:id",
-  results: "/results:id",
+  question: "/question",
+  results: "/results",
 };
 
 const router = createBrowserRouter([

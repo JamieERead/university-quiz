@@ -5,6 +5,8 @@ const initialState: Quiz = {
   name: "",
   heading: "",
   activities: [],
+  selectedActivity: "",
+  currentQuestion: 0,
 };
 
 export const quizSlice = createSlice({
@@ -17,10 +19,16 @@ export const quizSlice = createSlice({
         ...action.payload,
       };
     },
+    setActivity: (state, action) => {
+      state.selectedActivity = action.payload;
+    },
+    nextQuestion: (state, action) => {
+      state.currentQuestion = state.currentQuestion++;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { onQuizLoad } = quizSlice.actions;
+export const { onQuizLoad, setActivity, nextQuestion } = quizSlice.actions;
 
 export default quizSlice.reducer;

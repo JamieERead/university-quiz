@@ -5,11 +5,10 @@ export const ActivityContainer = styled.div`
 `;
 
 export const Button = styled.button`
-  background: transparent;
   border: none;
   border-bottom: 1px solid #b0e1ff;
   color: #1a9bec;
-  padding: 1em;
+  padding: 1.5em;
   cursor: pointer;
   background: #f3f9fc;
   transition: 0.3s;
