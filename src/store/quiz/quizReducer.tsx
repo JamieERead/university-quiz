@@ -22,13 +22,25 @@ export const quizSlice = createSlice({
     setActivity: (state, action) => {
       state.selectedActivity = action.payload;
     },
-    nextQuestion: (state, action) => {
-      state.currentQuestion = state.currentQuestion++;
+    answerQuestion: (state, action) => {
+      const answer = action.payload;
+      const activity = state.activities.find(
+        (item) => item.activity_name === state.selectedActivity
+      );
+      const question = activity?.questions[state.currentQuestion];
+
+      if (question) {
+        question.user_answer = answer;
+      }
+    },
+    nextQuestion: (state) => {
+      state.currentQuestion = state.currentQuestion + 1;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { onQuizLoad, setActivity, nextQuestion } = quizSlice.actions;
+export const { onQuizLoad, setActivity, answerQuestion, nextQuestion } =
+  quizSlice.actions;
 
 export default quizSlice.reducer;

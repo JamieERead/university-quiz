@@ -2,7 +2,7 @@ import { Activity } from "../../types";
 import { Button, ActivityContainer } from "./styles";
 
 type Props = {
-  activities: Array<Activity>;
+  activities: Activity[];
   goToActivity: (item: Activity) => void;
 };
 

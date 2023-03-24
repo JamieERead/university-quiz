@@ -1,6 +1,8 @@
 import React from "react";
 import Question from "../../components/question";
-import { useAppSelector } from "../../hooks/redux";
+import QuestionButtons from "../../components/answerButtons";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { answerQuestion, nextQuestion } from "../../store/quiz/quizReducer";
 import {
   getCurrentActivity,
   getQuiz,
@@ -11,9 +13,19 @@ const QuestionScreen = () => {
   const quiz = useAppSelector(getQuiz);
   const activity = useAppSelector(getCurrentActivity);
   const question = useAppSelector(getCurrentQuestion);
-  console.log(question);
+  const dispatch = useAppDispatch();
+  const userHasAnswered = question?.user_answer !== undefined;
+  const userCorrect =
+    userHasAnswered && question.user_answer === question.is_correct;
 
-  // return home something went wrong
+  const onAnswer = (answer: boolean) => {
+    dispatch(answerQuestion(answer));
+  };
+
+  const onNextQuestion = () => {
+    dispatch(nextQuestion());
+  };
+
   if (!activity || !question) {
     return <h1>Something went wrong</h1>;
   }
@@ -24,7 +36,16 @@ const QuestionScreen = () => {
         <h2>{activity.activity_name}</h2>
         <h1 className="large">{`Q${quiz.currentQuestion + 1}.`}</h1>
       </div>
-      <Question question={question.stimulus} />
+      <Question
+        showAnswer={userHasAnswered && !userCorrect}
+        question={userHasAnswered ? question.feedback : question.stimulus}
+      />
+      <QuestionButtons
+        userCorrect={userCorrect}
+        userHasAnswered={userHasAnswered}
+        onAnswer={onAnswer}
+        onNextQuestion={onNextQuestion}
+      />
     </>
   );
 };

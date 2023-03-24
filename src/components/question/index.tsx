@@ -1,22 +1,17 @@
-import { memo } from "react";
-import { QuestionContainer, Button } from "./styles";
 import ReactMarkdown from "react-markdown";
+import { memo } from "react";
+import { QuestionContainer } from "./styles";
 
 type Props = {
+  showAnswer: boolean;
   question?: string;
 };
 
-const Question = memo(({ question }: Props) => (
+const Question = memo(({ showAnswer, question }: Props) => (
   <>
-    <QuestionContainer>
+    <QuestionContainer showAnswer={showAnswer}>
       <ReactMarkdown children={question as string} />
     </QuestionContainer>
-    <div className="conatiner">
-      <div className="row">
-        <Button buttonType="correct">Correct</Button>
-        <Button>Incorrect</Button>
-      </div>
-    </div>
   </>
 ));
 
