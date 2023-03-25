@@ -4,12 +4,13 @@ import ActivityList from "../../components/activityList";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { route } from "../../routes";
 import {
+  nextRound,
   onQuizLoad,
   resetQuiz,
   setActivity,
 } from "../../store/quiz/quizReducer";
 import { getQuiz } from "../../store/quiz/quizSelector";
-import { Activity } from "../../types";
+import { Activity, Quiz } from "../../types";
 
 const HomeScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -20,9 +21,14 @@ const HomeScreen: React.FC = () => {
     const abortController = new AbortController();
     fetch("/api/getQuiz", { signal: abortController.signal })
       .then((res) => res.json())
-      .then((data) => {
+      .then((quiz: Quiz) => {
+        quiz.activities.forEach((item) => {
+          const roundBased = item.questions.some((q) => q.round_title);
+          item.roundBased = roundBased;
+        });
+
         dispatch(resetQuiz());
-        dispatch(onQuizLoad(data));
+        dispatch(onQuizLoad(quiz));
       });
 
     return () => {
@@ -33,7 +39,13 @@ const HomeScreen: React.FC = () => {
 
   const goToActivity = (activity: Activity) => {
     dispatch(setActivity(activity.activity_name));
-    navigate(route.question);
+
+    if (activity.roundBased) {
+      dispatch(nextRound());
+      navigate(route.round);
+    } else {
+      navigate(route.question);
+    }
   };
 
   return (

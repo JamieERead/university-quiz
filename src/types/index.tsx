@@ -4,11 +4,13 @@ export interface Quiz {
   activities: Activity[];
   currentQuestion: number;
   selectedActivity: string;
+  currentRound: number | null;
 }
 
 export interface Activity {
   activity_name: string;
   order: number;
+  roundBased: boolean;
   questions: ActivityQuestion[];
 }
 

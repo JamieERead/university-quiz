@@ -5,6 +5,10 @@ export const getQuiz = (state: RootState): Quiz => {
   return state.quiz;
 };
 
+export const getCurrentRound = (state: RootState): number | null => {
+  return state.quiz.currentRound;
+};
+
 export const getCurrentActivity = (state: RootState): Activity | null => {
   const current = state.quiz.selectedActivity;
   const found = state.quiz.activities.find(
@@ -25,8 +29,16 @@ export const getCurrentQuestion = (
   state: RootState
 ): ActivityQuestion | null => {
   const activity = getCurrentActivity(state);
-  const current = state.quiz.currentQuestion;
-  const found = activity?.questions[current];
+  const { currentQuestion, currentRound } = state.quiz;
+
+  let found = activity?.questions[currentQuestion];
+
+  if (activity?.roundBased && currentRound !== null) {
+    const round = activity?.questions[currentRound];
+    if (round.questions) {
+      found = round.questions[currentQuestion];
+    }
+  }
 
   if (!found) {
     return null;
