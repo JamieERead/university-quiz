@@ -9,11 +9,11 @@ type Props = {
 
 const Question = memo(({ variant, question }: Props) => {
   return (
-    <>
+    <div className="container">
       <QuestionContainer variant={variant}>
         <ReactMarkdown children={question as string} />
       </QuestionContainer>
-    </>
+    </div>
   );
 });
 

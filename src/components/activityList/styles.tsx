@@ -5,6 +5,7 @@ export const ActivityContainer = styled.div`
 `;
 
 export const Button = styled.button`
+  font-size: 16px;
   border: none;
   border-bottom: 1px solid #b0e1ff;
   color: #1a9bec;
