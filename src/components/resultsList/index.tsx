@@ -1,4 +1,5 @@
-import { Activity } from "../../types";
+import { ReactElement } from "react";
+import { Activity, ActivityQuestion } from "../../types";
 import { Button } from "../buttons/styles";
 import { Result, ResultsContainer } from "./styles";
 
@@ -8,17 +9,34 @@ type Props = {
 };
 
 const ResultsList: React.FC<Props> = ({ activity, onBackHome }) => {
+  const renderResults = (questions: ActivityQuestion[]): ReactElement => {
+    return (
+      <>
+        {questions.map((item, index) => (
+          <>
+            <Result key={index}>
+              {item.round_title ? (
+                <div className="row">{item.round_title}</div>
+              ) : (
+                <>
+                  <span>Q{index + 1}</span>
+                  <span>
+                    {item.is_correct === item.user_answer ? "Correct" : "-"}
+                  </span>
+                </>
+              )}
+            </Result>
+            {item.questions && renderResults(item.questions)}
+          </>
+        ))}
+      </>
+    );
+  };
+
   return (
     <>
       <ResultsContainer className="container">
-        {activity.questions.map((item, index) => (
-          <Result key={index}>
-            <span>Q{index + 1}</span>
-            <span>
-              {item.is_correct === item.user_answer ? "Correct" : "-"}
-            </span>
-          </Result>
-        ))}
+        {renderResults(activity.questions)}
       </ResultsContainer>
       <div className="row">
         <Button buttonType="blue" onClick={onBackHome}>
