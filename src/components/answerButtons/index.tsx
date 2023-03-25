@@ -6,7 +6,7 @@ type Props = {
 
 const AnswerButtons: React.FC<Props> = ({ onAnswer }) => {
   return (
-    <div className="conatiner">
+    <div className="container pad">
       <div className="row">
         <Button buttonType="green" onClick={() => onAnswer(true)}>
           Correct

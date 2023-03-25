@@ -38,7 +38,7 @@ const AnswerResult: React.FC<Props> = ({
   }
 
   return (
-    <div className="conatiner">
+    <div className="container pad">
       <div className="row">
         <p>
           {userCorrect
