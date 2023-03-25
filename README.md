@@ -44,3 +44,11 @@ yarn start-both
 
 This will start the development server and open the University Quiz app in your default web browser at this URL.
 [http://localhost:3000/](http://localhost:3000/)
+
+## Testing
+
+Tests have been added using Jest and React Testing Library, they can be run with this command:
+
+```
+yarn test
+```

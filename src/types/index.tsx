@@ -19,7 +19,7 @@ export interface ActivityQuestion {
   stimulus?: string;
   order: number;
   // user_answers: boolean[]; Decided not to use an array as it's not necessary
-  user_answer: boolean;
+  user_answer?: boolean;
   feedback: string;
   round_title?: string;
   questions?: ActivityQuestion[];
