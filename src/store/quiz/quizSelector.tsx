@@ -18,6 +18,9 @@ export const getCurrentActivity = (state: RootState): Activity | null => {
   return found;
 };
 
+export const getCurrentQuestionIndex = (state: RootState) =>
+  state.quiz.currentQuestion;
+
 export const getCurrentQuestion = (
   state: RootState
 ): ActivityQuestion | null => {

@@ -1,18 +1,20 @@
 import ReactMarkdown from "react-markdown";
 import { memo } from "react";
-import { QuestionContainer } from "./styles";
+import { QuestionColors, QuestionContainer } from "./styles";
 
 type Props = {
-  showAnswer: boolean;
+  variant: QuestionColors;
   question?: string;
 };
 
-const Question = memo(({ showAnswer, question }: Props) => (
-  <>
-    <QuestionContainer showAnswer={showAnswer}>
-      <ReactMarkdown children={question as string} />
-    </QuestionContainer>
-  </>
-));
+const Question = memo(({ variant, question }: Props) => {
+  return (
+    <>
+      <QuestionContainer variant={variant}>
+        <ReactMarkdown children={question as string} />
+      </QuestionContainer>
+    </>
+  );
+});
 
 export default Question;

@@ -36,11 +36,20 @@ export const quizSlice = createSlice({
     nextQuestion: (state) => {
       state.currentQuestion = state.currentQuestion + 1;
     },
+    resetQuiz: (state) => {
+      state.selectedActivity = "";
+      state.currentQuestion = 0;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { onQuizLoad, setActivity, answerQuestion, nextQuestion } =
-  quizSlice.actions;
+export const {
+  onQuizLoad,
+  setActivity,
+  answerQuestion,
+  nextQuestion,
+  resetQuiz,
+} = quizSlice.actions;
 
 export default quizSlice.reducer;

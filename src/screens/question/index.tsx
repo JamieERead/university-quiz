@@ -7,13 +7,20 @@ import {
   getCurrentActivity,
   getQuiz,
   getCurrentQuestion,
+  getCurrentQuestionIndex,
 } from "../../store/quiz/quizSelector";
+import { useNavigate } from "react-router-dom";
+import { route } from "../../routes";
 
 const QuestionScreen = () => {
   const quiz = useAppSelector(getQuiz);
   const activity = useAppSelector(getCurrentActivity);
   const question = useAppSelector(getCurrentQuestion);
+  const currentQuestion = useAppSelector(getCurrentQuestionIndex);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const isLastQuestion = currentQuestion + 1 === activity?.questions.length;
   const userHasAnswered = question?.user_answer !== undefined;
   const userCorrect =
     userHasAnswered && question.user_answer === question.is_correct;
@@ -24,6 +31,17 @@ const QuestionScreen = () => {
 
   const onNextQuestion = () => {
     dispatch(nextQuestion());
+  };
+
+  const onResults = () => {
+    navigate(route.results);
+  };
+
+  const getQuestionColor = () => {
+    if (userHasAnswered) {
+      return userCorrect ? "green" : "red";
+    }
+    return "blue";
   };
 
   if (!activity || !question) {
@@ -37,14 +55,16 @@ const QuestionScreen = () => {
         <h1 className="large">{`Q${quiz.currentQuestion + 1}.`}</h1>
       </div>
       <Question
-        showAnswer={userHasAnswered && !userCorrect}
+        variant={getQuestionColor()}
         question={userHasAnswered ? question.feedback : question.stimulus}
       />
       <QuestionButtons
+        isLastQuestion={isLastQuestion}
         userCorrect={userCorrect}
         userHasAnswered={userHasAnswered}
         onAnswer={onAnswer}
         onNextQuestion={onNextQuestion}
+        onResults={onResults}
       />
     </>
   );

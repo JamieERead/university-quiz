@@ -20,13 +20,5 @@ export interface ActivityQuestion {
   user_answer: boolean;
   feedback: string;
   round_title?: string;
-  questions?: QuestionQuestion[];
-}
-
-export interface QuestionQuestion {
-  is_correct: boolean;
-  stimulus: string;
-  order: number;
-  user_answers: boolean[];
-  feedback: string;
+  questions?: ActivityQuestion[];
 }
