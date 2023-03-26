@@ -33,6 +33,7 @@ export const getCurrentQuestion = (
 
   let found = activity?.questions[currentQuestion];
 
+  // Get the round question instead
   if (activity?.roundBased && currentRound !== null) {
     const round = activity?.questions[currentRound];
     if (round.questions) {

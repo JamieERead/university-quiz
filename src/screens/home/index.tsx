@@ -19,9 +19,12 @@ const HomeScreen: React.FC = () => {
 
   useEffect(() => {
     const abortController = new AbortController();
+
+    // Initial call to get all the quiz data
     fetch("/api/getQuiz", { signal: abortController.signal })
       .then((res) => res.json())
       .then((quiz: Quiz) => {
+        // Identify which activities are round based
         quiz.activities.forEach((item) => {
           const roundBased = item.questions.some((q) => q.round_title);
           item.roundBased = roundBased;

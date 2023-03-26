@@ -10,6 +10,7 @@ type Props = {
 
 const ResultsList: React.FC<Props> = ({ activity, onBackHome }) => {
   const renderResults = (questions: ActivityQuestion[]): ReactElement => {
+    // Recursive function to render all the round based and normal results
     return (
       <>
         {questions.map((item, index) => (
